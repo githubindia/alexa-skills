@@ -23,6 +23,7 @@ app.post('/', function(req, res) {
     alexa.appId = "amzn1.ask.skill.f90712ef-cf51-4276-b1b6-bbcac167b830";
     alexa.registerHandlers(handlers);
     alexa.execute();
+    res.status(200).send("handlers");
 });
 
 app.get('/', function(req, res) {
