@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "alexa-app": "^4.2.1",
     "alexa-sdk": "^1.0.25",
     "alexa-verifier": "^1.0.0",
     "body-parser": "1.18.2",

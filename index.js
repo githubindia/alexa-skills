@@ -77,12 +77,10 @@ app.post('/webhook', function(req, res){
   // Called when all data has been accumulated
   req.on('end', function(){
     var responseBody = {};
-    // console.log(requestBody);
-    // console.log(JSON.stringify(requestBody));
 
     // parsing the requestBody for information
     var jsonData = JSON.parse(requestBody);
-    if(jsonData.request.type == "LaunchRequest")
+    if(jsonData.request.type == "LaunchRequest");
     {
       // crafting a response
       responseBody = {
@@ -116,32 +114,7 @@ app.post('/webhook', function(req, res){
         // The Intent "TurnOn" was successfully called
         outputSpeechText = "Congrats! You asked to turn on but it was not implemented";
         cardContent = "Successfully called " + jsonData.request.intent.name + ", but it's not implemented!";
-      }
-      else if (jsonData.request.intent.name == "TurnOff")
-      {
-        // The Intent "TurnOff" was successfully called
-        outputSpeechText = "Congrats! You asked to turn off but it was not implemented";
-        cardContent = "Successfully called " + jsonData.request.intent.name + ", but it's not implemented!";
-      }else{
-        outputSpeechText = jsonData.request.intent.name + " not implemented";
-        cardContent = "Successfully called " + jsonData.request.intent.name + ", but it's not implemented!";
-      }
-      responseBody = {
-          "version": "0.1",
-          "response": {
-            "outputSpeech": {
-              "type": "PlainText",
-              "text": outputSpeechText
-            },
-            "card": {
-              "type": "Simple",
-              "title": "Open Smart Hub",
-              "content": cardContent
-            },
-            "shouldEndSession": false
-          }
-        };
-    }else{
+      } else {
       // Not a recognized type
       responseBody = {
         "version": "0.1",
