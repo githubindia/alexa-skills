@@ -3,6 +3,8 @@ var bodyParser = require('body-parser');
 var app = express();
 // Initialize the Alexa SDK
 var Alexa = require('alexa-sdk');
+
+var port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 app.post('/', function(req, res) {
@@ -53,4 +55,5 @@ var handlers = {
     }
 };
 
-app.listen(3000);
+app.listen(port);
+console.log("Server Running Successfully at port " + port);
