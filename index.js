@@ -80,7 +80,7 @@ app.post('/webhook', function(req, res){
 
     // parsing the requestBody for information
     var jsonData = JSON.parse(requestBody);
-    if(jsonData.request.type == "LaunchRequest");
+    if(jsonData.request.type == "LaunchRequest")
     {
       // crafting a response
       responseBody = {
@@ -104,8 +104,7 @@ app.post('/webhook', function(req, res){
           "shouldEndSession": false
         }
       };
-    }
-    else if(jsonData.request.type == "IntentRequest")
+    } else if(jsonData.request.type == "IntentRequest")
     {
       var outputSpeechText = "";
       var cardContent = "";
@@ -139,10 +138,12 @@ app.post('/webhook', function(req, res){
       };
     }
 
-    res.statusCode = 200;
+    
+  }
+  res.statusCode = 200;
     res.contentType('application/json');
     res.send(responseBody);
-  });
+});
 });
 
 app.listen(port);
