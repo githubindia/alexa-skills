@@ -6,12 +6,12 @@ var Alexa = require('alexa-sdk');
 app.use(bodyParser.json());
 
 app.post('/', function(req, res) {
-    console.log("request received");
+    //console.log("Request : " + JSON.stringify(req.body));
     // Build the context manually, because Amazon Lambda is missing
     var context = {
         succeed: function (result) {
             console.log(result);
-            res.json(result);
+            res.send(result);
         },
         fail:function (error) {
             console.log(error);
@@ -26,27 +26,28 @@ app.post('/', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-    console.log("inside get");
+    console.log("App Running!");
 });
 
 var handlers = {
     'LaunchRequest': function() {
-
-        this.emit('WheatherIntent');
+        this.attributes['speechOutput'] = "Hello, I am Launch Request. Put Skill name here. How can I help?"
+        this.attributes['repromptSpeech'] = "Are you there?"
+        this.emit(":ask", this.attributes['speechOutput'], this.attributes['repromptSpeech']);
+        
     },
+
     'WeatherIntent': function() {
-
         var message = "Hello from node JS";
-
         this.response.speak(message);
         this.emit(':responseReady');
-
     },
-    'SessionEndedRequest': function() {
 
+    'SessionEndedRequest': function() {
         console.log('session ended!');
         this.attributes['endedSessionCount'] += 1;
     },
+
     'Unhandled': function () {
         this.emit(':ask', HelpMessage, HelpMessage);
     }
