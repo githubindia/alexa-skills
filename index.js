@@ -110,9 +110,25 @@ app.post('/webhook', function(req, res){
       var cardContent = "";
       if (jsonData.request.intent.name == "WeatherIntent")
       {
+        //response modified
         // The Intent "TurnOn" was successfully called
         outputSpeechText = "Congrats! You asked to turn on but it was not implemented";
         cardContent = "Successfully called " + jsonData.request.intent.name + ", but it's not implemented!";
+        responseBody = {
+          version: '1.0',
+          response:
+          { shouldEndSession: false,
+          outputSpeech:
+          { 
+            type: 'SSML',
+            ssml: '<speak> Hello, I am Launch Request. Put Skill name here. How can I help? </speak>' },
+            reprompt: { outputSpeech: outputSpeechText } 
+          },
+          sessionAttributes:
+          { speechOutput: 'Hello, I am Launch Request. Put Skill name here. How can I help?',
+          repromptSpeech: 'Are you there?' },
+          userAgent: 'ask-nodejs/1.0.25 Node/v6.10.0'
+        }
       } else {
       // Not a recognized type
       responseBody = {
