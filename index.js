@@ -66,7 +66,7 @@ var express = require('express')
 // Creates the website server on the port #
 
 // Handles the route for echo apis
-app.post('/', function(req, res){
+app.post('/webhook', function(req, res){
   var requestBody = "";
 
   // Will accumulate the data
