@@ -61,7 +61,8 @@
 var express = require('express')
 , app = express()
 , server = require('http').createServer(app)
-, port = process.env.PORT || 3000;
+, port = process.env.PORT || 3000
+, request = require('request');
 
 // Creates the website server on the port #
 
@@ -112,17 +113,55 @@ app.post('/webhook', function(req, res){
       {
         //response modified
         // The Intent "TurnOn" was successfully called
-        outputSpeechText = "Congrats! You asked to turn on but it was not implemented";
-        cardContent = "Successfully called " + jsonData.request.intent.name + ", but it's not implemented!";
         responseBody = {
         "version": '1.0',
-        "response":
-         { "shouldEndSession": true,
-           "outputSpeech": { "type": 'SSML', "ssml": '<speak> Hello from node JS </speak>' } },
+        "response": {
+            "shouldEndSession": true,
+            "outputSpeech": { "type": 'SSML', "ssml": '<speak> Hello from node JS </speak>' } 
+        },
         "sessionAttributes": {},
         "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
         }
-      } else {
+      } else if (jsonData.request.intent.name == "cityIntent") {
+          if (jsonData.request.intent.slots.cityName.name == "cityName") {
+            city = jsonData.request.intent.slots.cityName.value;
+            var options = { 
+                method: 'GET',
+                url: 'http://dataservice.accuweather.com/locations/v1/cities/search',
+                qs: { 
+                    "apikey":'kNTiuz2hH9RVnnnzYst5QCfU86NHfFNI',
+                    "q":jsonData.request.intent.slots.cityName.value
+                },
+                json:true
+            };
+            request(options, function(err, response, body){
+                var cityKey = body[0].key;
+                var options1 = { 
+                    method: 'GET',
+                    url: 'http://dataservice.accuweather.com/forecasts/v1/daily/1day/'+cityKey,
+                    qs: { 
+                        "apikey":'kNTiuz2hH9RVnnnzYst5QCfU86NHfFNI',
+                    },
+                    json:true
+                };
+                request(options1, function(err, response, body1){
+                    outputSpeech = "Todays temperature of " + city + "is" + body1.DailyForecasts.Temperature.Maximum.value + "degree Farenheit. It is " + body1.DailyForecasts.Day.IconPhrase +" at noon and may have " + body1.DailyForecasts.Night.IconPhrase + " at night";
+                    responseBody = {
+                        "version": '1.0',
+                        "response": {
+                            "shouldEndSession": true,
+                            "outputSpeech": { "type": 'SSML', "ssml": '<speak>' + outputSpeech + '</speak>' } 
+                        },
+                        "sessionAttributes": {},
+                        "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
+                        }
+                });
+
+            })
+          }
+      } 
+      
+      {
       // Not a recognized type
       responseBody = {
         "version": "0.1",
