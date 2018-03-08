@@ -136,7 +136,7 @@ app.post('/webhook', function(req, res){
             };
             request(options, function(err, response, body){
                 console.log(body + "body");
-                console.log(response + "body");
+                console.log(JSON.stringify(response) + "body");
                 var cityKey = body[0].Key;
                 var options1 = { 
                     method: 'GET',
