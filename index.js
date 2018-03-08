@@ -88,7 +88,7 @@ app.post('/webhook', function(req, res){
         "response": {
           "outputSpeech": {
             "type": "PlainText",
-            "text": "Welcome to Echo Sample! Please say a command"
+            "text": "Welcome to Shubham's Stormy weather assistant! Please say a command."
           },
           "card": {
             "type": "Simple",
