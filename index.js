@@ -135,7 +135,7 @@ app.post('/webhook', function(req, res){
                 json:true
             };
             request(options, function(err, response, body){
-                var cityKey = body[0].key;
+                var cityKey = body[0].Key;
                 var options1 = { 
                     method: 'GET',
                     url: 'http://dataservice.accuweather.com/forecasts/v1/daily/1day/'+cityKey,
