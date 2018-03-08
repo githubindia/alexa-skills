@@ -135,9 +135,9 @@ app.post('/webhook', function(req, res){
                 json:true
             };
             request(options, function(err, response, body){
-                console.log(body + "body");
+                console.log(JSON.stringify(body) + "body");
                 console.log(JSON.stringify(response) + "body");
-                var cityKey = body[0].Key;
+                var cityKey = response.body[0].Key;
                 var options1 = { 
                     method: 'GET',
                     url: 'http://dataservice.accuweather.com/forecasts/v1/daily/1day/'+cityKey,
@@ -147,7 +147,7 @@ app.post('/webhook', function(req, res){
                     json:true
                 };
                 request(options1, function(err, response, body1){
-                    outputSpeech = "Todays temperature of " + city + "is" + body1.DailyForecasts.Temperature.Maximum.value + "degree Farenheit. It is " + body1.DailyForecasts.Day.IconPhrase +" at noon and may have " + body1.DailyForecasts.Night.IconPhrase + " at night";
+                    outputSpeech = "Todays temperature of " + city + "is" + response.DailyForecasts.Temperature.Maximum.value + "degree Farenheit. It is " + response.DailyForecasts.Day.IconPhrase +" at noon and may have " + response.DailyForecasts.Night.IconPhrase + " at night";
                     responseBody = {
                         "version": '1.0',
                         "response": {
