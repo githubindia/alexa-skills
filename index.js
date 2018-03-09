@@ -62,8 +62,9 @@ var express = require('express')
 , app = express()
 , server = require('http').createServer(app)
 , deasync = require('deasync')
+, weather = require('./src/weatherApi.js')
 , port = process.env.PORT || 3000
-, request = require('sync-request');
+, request = require('request');
 
 // Creates the website server on the port #
 
@@ -126,6 +127,7 @@ app.post('/webhook', function(req, res){
     } else if (jsonData.request.intent.name == "cityIntent") {
           if (jsonData.request.intent.slots.cityName.name == "cityName") {
             city = jsonData.request.intent.slots.cityName.value;
+            console.log(city);
             // var options = { 
             //     method: 'GET',
             //     url: 'http://samples.openweathermap.org/data/2.5/weather',
@@ -135,13 +137,10 @@ app.post('/webhook', function(req, res){
             //     },
             //     json:true
             // };
-            var response = request("GET", 'http://samples.openweathermap.org/data/2.5/weather', {
-                qs: { 
-                    "q":city,
-                    "appid":'b6907d289e10d714a6e88b30761fae22'                    
-                },
-                json:true
-            });
+            let response = deasync(function(callback){
+                weather.cityWeather(city, callback);
+            })
+                console.log(response + "response")
                 outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
                 console.log(outputSpeechText);    
             if (jsonData.request.dialogState == "STARTED") {
