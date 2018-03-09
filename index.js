@@ -127,27 +127,18 @@ app.post('/webhook', function(req, res){
             city = jsonData.request.intent.slots.cityName.value;
             var options = { 
                 method: 'GET',
-                url: 'http://dataservice.accuweather.com/locations/v1/cities/search',
+                url: 'http://samples.openweathermap.org/data/2.5/weather',
                 qs: { 
-                    "apikey":'kNTiuz2hH9RVnnnzYst5QCfU86NHfFNI',
-                    "q":jsonData.request.intent.slots.cityName.value
+                    "q":jsonData.request.intent.slots.cityName.value,
+                    "appid":'b6907d289e10d714a6e88b30761fae22'                    
                 },
                 json:true
             };
             request(options, function(err, response, body){
+                console.log("inside request");
                 console.log(JSON.stringify(body) + "body");
                 console.log(JSON.stringify(response) + "body");
-                var cityKey = response.body[0].Key;
-                var options1 = { 
-                    method: 'GET',
-                    url: 'http://dataservice.accuweather.com/forecasts/v1/daily/1day/'+cityKey,
-                    qs: { 
-                        "apikey":'kNTiuz2hH9RVnnnzYst5QCfU86NHfFNI',
-                    },
-                    json:true
-                };
-                request(options1, function(err, response, body1){
-                    outputSpeech = "Todays temperature of " + city + "is" + response.DailyForecasts.Temperature.Maximum.value + "degree Farenheit. It is " + response.DailyForecasts.Day.IconPhrase +" at noon and may have " + response.DailyForecasts.Night.IconPhrase + " at night";
+                    outputSpeech = "humidity is " + response.main.humidity + "with " + weather.description + ".";
                     responseBody = {
                         "version": '1.0',
                         "response": {
@@ -158,12 +149,8 @@ app.post('/webhook', function(req, res){
                         "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
                         }
                 });
-
-            })
-          }
-      } 
-      
-      {
+      }
+      } else {
       // Not a recognized type
       responseBody = {
         "version": "0.1",
@@ -187,13 +174,11 @@ app.post('/webhook', function(req, res){
         }
       };
     }
-
-    
-  }
-  res.statusCode = 200;
+    res.statusCode = 200;
     res.contentType('application/json');
     res.send(responseBody);
-});
-});
+    }
+    });
+  });
 
 app.listen(port);
