@@ -138,16 +138,28 @@ app.post('/webhook', function(req, res){
                 console.log("inside request");
                 console.log(JSON.stringify(body) + "body");
                 console.log(JSON.stringify(response) + "body");
-                    outputSpeech = "humidity is " + response.main.humidity + "with " + weather.description + ".";
-                    responseBody = {
-                        "version": '1.0',
-                        "response": {
-                            "shouldEndSession": true,
-                            "outputSpeech": { "type": 'SSML', "ssml": '<speak>' + outputSpeech + '</speak>' } 
-                        },
-                        "sessionAttributes": {},
-                        "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
+                outputSpeech = "humidity is " + response.main.humidity + "with " + weather.description + ".";
+                responseBody = {
+                    "version": "0.1",
+                    "response": {
+                    "outputSpeech": {
+                        "type": "PlainText",
+                        "text": outputSpeech
+                    },
+                    "card": {
+                        "type": "Simple",
+                        "title": "Error Parsing",
+                        "content": "Hello from JS."
+                    },
+                    "reprompt": {
+                        "outputSpeech": {
+                        "type": "PlainText",
+                        "text": "Say a command"
                         }
+                    },
+                    "shouldEndSession": false
+                    }
+                };
                 });
       }
       } else {
