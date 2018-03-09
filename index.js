@@ -142,7 +142,7 @@ app.post('/webhook', function(req, res){
             })();
             if (jsonData.request.dialogState == "STARTED") {
                 console.log("response"+JSON.stringify(response) + "response")
-                outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather[0].description + ".";
+                outputSpeechText = "humidity is " + response.body.main.humidity + "with " + response.body.weather[0].description + ".";
                 console.log(outputSpeechText);
 
                     responseBody = {
