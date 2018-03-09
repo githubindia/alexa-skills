@@ -122,15 +122,14 @@ app.post('/webhook', function(req, res){
         "sessionAttributes": {},
         "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
     }
-      }
-      } else if (jsonData.request.intent.name == "cityIntent") {
+    } else if (jsonData.request.intent.name == "cityIntent") {
           if (jsonData.request.intent.slots.cityName.name == "cityName") {
             city = jsonData.request.intent.slots.cityName.value;
             var options = { 
                 method: 'GET',
                 url: 'http://samples.openweathermap.org/data/2.5/weather',
                 qs: { 
-                    "q":jsonData.request.intent.slots.cityName.value,
+                    "q":city,
                     "appid":'b6907d289e10d714a6e88b30761fae22'                    
                 },
                 json:true
@@ -139,7 +138,10 @@ app.post('/webhook', function(req, res){
                 console.log("inside request");
                 console.log(JSON.stringify(response) + "response");
                 outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
-                if (this.event.request.dialogState == "STARTED") {
+                console.log(outputSpeechText);
+                
+            });
+            if (jsonData.request.dialogState == "STARTED") {
                     responseBody = {
                         "version": "1.0",
                         "response": {
@@ -167,8 +169,8 @@ app.post('/webhook', function(req, res){
                         }
                     };
                 }
-            });
       }
+    }
       } else {
       // Not a recognized type
       responseBody = {
