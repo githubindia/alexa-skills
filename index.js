@@ -141,7 +141,7 @@ app.post('/webhook', function(req, res){
                 weather.cityWeather(city, callback);
             })();
             if (jsonData.request.dialogState == "STARTED") {
-                console.log(JSON.stringify(response) + "response")
+                console.log("response"+JSON.stringify(response) + "response")
                 outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather[0].description + ".";
                 console.log(outputSpeechText);
 
@@ -150,7 +150,7 @@ app.post('/webhook', function(req, res){
                         "response": {
                         "outputSpeech": {
                             "type": "PlainText",
-                            "text": outputSpeechText
+                            "text": "outputSpeechText"
                         },
                         "card": {
                             "type": "Simple",
