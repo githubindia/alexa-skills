@@ -142,14 +142,15 @@ app.post('/webhook', function(req, res){
             })();
             if (jsonData.request.dialogState == "STARTED") {
                 console.log("response"+JSON.stringify(response) + "response")
-                outputSpeechText = "humidity is " + response.body.main.humidity + "with " + response.body.weather[0].description + ".";
+                outputSpeechText = "humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
                 console.log(outputSpeechText);
 
                     responseBody = {
                         "version": "1.0",
                         "response": {
                         "outputSpeech": {
-                          "type": 'SSML', "ssml": '<speak>' + outputSpeechText + '</speak>'
+                            "type": "PlainText",
+                            "text": outputSpeechText
                         },
                         "card": {
                             "type": "Simple",
