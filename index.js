@@ -139,9 +139,7 @@ app.post('/webhook', function(req, res){
                 console.log(JSON.stringify(response) + "response");
                 outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
                 console.log(outputSpeechText);
-                
-            });
-            if (jsonData.request.dialogState == "STARTED") {
+                if (jsonData.request.dialogState == "STARTED") {
                     responseBody = {
                         "version": "1.0",
                         "response": {
@@ -169,6 +167,7 @@ app.post('/webhook', function(req, res){
                         }
                     };
                 }
+            });
       }
     }
       } else {
