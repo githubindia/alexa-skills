@@ -121,7 +121,8 @@ app.post('/webhook', function(req, res){
         },
         "sessionAttributes": {},
         "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
-        }
+    }
+      }
       } else if (jsonData.request.intent.name == "cityIntent") {
           if (jsonData.request.intent.slots.cityName.name == "cityName") {
             city = jsonData.request.intent.slots.cityName.value;
@@ -136,31 +137,30 @@ app.post('/webhook', function(req, res){
             };
             request(options, function(err, response, body){
                 console.log("inside request");
-                console.log(JSON.stringify(body) + "body");
                 console.log(JSON.stringify(response) + "response");
-                outputSpeech = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
-                responseBody = {
-                    "version": "0.1",
-                    "response": {
+                outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
+            });
+            responseBody = {
+                "version": "1.0",
+                "response": {
+                "outputSpeech": {
+                    "type": "PlainText",
+                    "text": outputSpeechText
+                },
+                "card": {
+                    "type": "Simple",
+                    "title": "cityIntent",
+                    "content": "Hello from JS."
+                },
+                "reprompt": {
                     "outputSpeech": {
-                        "type": "PlainText",
-                        "text": outputSpeech
-                    },
-                    "card": {
-                        "type": "Simple",
-                        "title": "Error Parsing",
-                        "content": "Hello from JS."
-                    },
-                    "reprompt": {
-                        "outputSpeech": {
-                        "type": "PlainText",
-                        "text": "Say a command"
-                        }
-                    },
-                    "shouldEndSession": false
+                    "type": "PlainText",
+                    "text": "Say a command"
                     }
-                };
-                });
+                },
+                "shouldEndSession": false
+                }
+            };
       }
       } else {
       // Not a recognized type
@@ -189,7 +189,6 @@ app.post('/webhook', function(req, res){
     res.statusCode = 200;
     res.contentType('application/json');
     res.send(responseBody);
-    }
     });
   });
 
