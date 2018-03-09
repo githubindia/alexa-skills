@@ -141,7 +141,7 @@ app.post('/webhook', function(req, res){
                 weather.cityWeather(city, callback);
             })();
                 console.log(JSON.stringify(response) + "response")
-                outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
+                outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather[0].description + ".";
                 console.log(outputSpeechText);    
             if (jsonData.request.dialogState == "STARTED") {
                     responseBody = {
