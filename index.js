@@ -139,7 +139,7 @@ app.post('/webhook', function(req, res){
             // };
             let response = deasync(function(callback){
                 weather.cityWeather(city, callback);
-            })
+            })();
                 console.log(response + "response")
                 outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
                 console.log(outputSpeechText);    
