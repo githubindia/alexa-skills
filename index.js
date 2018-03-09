@@ -140,6 +140,7 @@ app.post('/webhook', function(req, res){
                 console.log(JSON.stringify(response) + "response");
                 outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
             });
+            if (this.event.request.dialogState == "STARTED") {
             responseBody = {
                 "version": "1.0",
                 "response": {
@@ -158,9 +159,15 @@ app.post('/webhook', function(req, res){
                     "text": "Say a command"
                     }
                 },
+                "directives": [
+                        {
+                            "type": "Dialog.Delegate"
+                        }
+                ],
                 "shouldEndSession": false
                 }
             };
+            }
       }
       } else {
       // Not a recognized type
