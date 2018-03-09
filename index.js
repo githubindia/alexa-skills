@@ -137,28 +137,14 @@ app.post('/webhook', function(req, res){
             };
             request(options, function(err, response, body){
                 console.log("inside request");
-                console.log(JSON.stringify(response) + "response");
-                outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
+                //console.log(JSON.stringify(response) + "response");
+                //outputSpeechText = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
             });
             if (this.event.request.dialogState == "STARTED") {
+                console.log("inside delegate");
             responseBody = {
                 "version": "1.0",
                 "response": {
-                "outputSpeech": {
-                    "type": "PlainText",
-                    "text": outputSpeechText
-                },
-                "card": {
-                    "type": "Simple",
-                    "title": "cityIntent",
-                    "content": "Hello from JS."
-                },
-                "reprompt": {
-                    "outputSpeech": {
-                    "type": "PlainText",
-                    "text": "Say a command"
-                    }
-                },
                 "directives": [
                         {
                             "type": "Dialog.Delegate"
