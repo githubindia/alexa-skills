@@ -16,7 +16,7 @@ module.exports = {
  
         request(options, function (error, response, body) {
           if (error) throw new Error(error);
-          callback(null, body);
+          callback(null, response);
         });
     }
 }
