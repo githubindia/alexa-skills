@@ -137,8 +137,8 @@ app.post('/webhook', function(req, res){
             request(options, function(err, response, body){
                 console.log("inside request");
                 console.log(JSON.stringify(body) + "body");
-                console.log(JSON.stringify(response) + "body");
-                outputSpeech = "humidity is " + response.main.humidity + "with " + weather.description + ".";
+                console.log(JSON.stringify(response) + "response");
+                outputSpeech = "humidity is " + response.main.humidity + "with " + response.weather.description + ".";
                 responseBody = {
                     "version": "0.1",
                     "response": {
