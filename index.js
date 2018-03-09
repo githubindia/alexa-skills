@@ -149,8 +149,7 @@ app.post('/webhook', function(req, res){
                         "version": "1.0",
                         "response": {
                         "outputSpeech": {
-                            "type": "PlainText",
-                            "text": "outputSpeechText"
+                          "type": 'SSML', "ssml": '<speak>' + outputSpeechText + '</speak>'
                         },
                         "card": {
                             "type": "Simple",
