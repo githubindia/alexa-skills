@@ -170,7 +170,9 @@ app.post('/webhook', function(req, res){
                                   "name": "cityIntent",
                                   "confirmationStatus": "NONE",
                                   "slots": {
-                                      "cityName": "london"
+                                    "name": "cityName",
+                                    "value": "London",
+                                    "confirmationStatus": "NONE"
                                   }
                               }
                           }
