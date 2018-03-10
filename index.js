@@ -141,7 +141,7 @@ app.post('/webhook', function(req, res){
                 weather.cityWeather(city, callback);
             })();
             if (jsonData.request.dialogState == "STARTED") {
-                console.log("response"+JSON.stringify(response) + "response")
+                //console.log("response"+JSON.stringify(response) + "response")
                 outputSpeechText = "humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
                 console.log(outputSpeechText);
 
@@ -183,30 +183,7 @@ app.post('/webhook', function(req, res){
                 }
       }
     }
-      } else {
-      // Not a recognized type
-      responseBody = {
-        "version": "0.1",
-        "response": {
-          "outputSpeech": {
-            "type": "PlainText",
-            "text": "Could not parse data"
-          },
-          "card": {
-            "type": "Simple",
-            "title": "Error Parsing",
-            "content": JSON.stringify(requestBody)
-          },
-          "reprompt": {
-            "outputSpeech": {
-              "type": "PlainText",
-              "text": "Say a command"
-            }
-          },
-          "shouldEndSession": false
-        }
-      };
-    }
+      }
     res.statusCode = 200;
     res.contentType('application/json');
     res.send(responseBody);
