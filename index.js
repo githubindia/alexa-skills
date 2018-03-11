@@ -180,6 +180,42 @@ app.post('/webhook', function(req, res){
                   }
               };
             }
+      } else {
+        responseBody = {
+          "version": "1.0",
+          "response": {
+          "outputSpeech": {
+              "type": "PlainText",
+              "text": outputSpeechText
+          },
+          "card": {
+              "type": "Simple",
+              "title": "cityIntent",
+              "content": "Hello from JS."
+          },
+          "reprompt": {
+              "outputSpeech": {
+              "type": "PlainText",
+              "text": "Say a command"
+              }
+          },
+          "directives": [
+            {
+                "type": "Dialog.Delegate",
+                "updatedIntent": {
+                    "name": "cityIntent",
+                    "confirmationStatus": "NONE",
+                    "slots": {
+                      "name": "cityName",
+                      "value": "London",
+                      "confirmationStatus": "NONE"
+                    }
+                }
+            }
+          ],
+          "shouldEndSession": false
+          }
+      };
       }
     }
       }
