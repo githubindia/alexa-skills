@@ -126,24 +126,9 @@ app.post('/webhook', function(req, res){
     }
     } else if (jsonData.request.intent.name == "cityIntent") {
           if (typeof jsonData.request.intent.slots.cityName.value != "undefined") {
-            city = jsonData.request.intent.slots.cityName.value;
-            console.log(city);
-            // var options = { 
-            //     method: 'GET',
-            //     url: 'http://samples.openweathermap.org/data/2.5/weather',
-            //     qs: { 
-            //         "q":city,
-            //         "appid":'b6907d289e10d714a6e88b30761fae22'                    
-            //     },
-            //     json:true
-            // };
-            let response = deasync(function(callback){
-                weather.cityWeather(city, callback);
-            })();
+            var city = jsonData.request.intent.slots.cityName.value;
             if (jsonData.request.dialogState == "STARTED") {
-                //console.log("response"+JSON.stringify(response) + "response")
-                var outputSpeechText = "humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
-                //console.log(outputSpeechText);
+                //var outputSpeechText = "humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
                 responseBody = {
                   "version": "1.0",
                   "response": {
@@ -156,7 +141,7 @@ app.post('/webhook', function(req, res){
                         "slots": {
                           "cityName": {
                             "name": "cityName",
-                            "value": "London",
+                            "value": city,
                             "confirmationStatus": "NONE"
                           }
                         }
@@ -166,6 +151,21 @@ app.post('/webhook', function(req, res){
                   "shouldEndSession": false
                   }
               };
+            } else if (jsonData.request.dialogState == "IN_PROGRESS" && jsonData.request.intent.slots.cityName.confirmationStatus == "CONFIRMED") {
+              let response = deasync(function(callback){
+                weather.cityWeather(city, callback);
+              })();
+
+              var outputSpeechText = "humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
+              responseBody = {
+                "version": '1.0',
+                "response": {
+                    "shouldEndSession": true,
+                    "outputSpeech": { "type": 'SSML', "ssml": '<speak>' + outputSpeechText + '</speak>' } 
+                },
+                "sessionAttributes": {},
+                "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
+            }
             }
       } else {
         responseBody = {
