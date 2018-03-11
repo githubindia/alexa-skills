@@ -164,16 +164,18 @@ app.post('/webhook', function(req, res){
                   },
                   "directives": [
                     {
-                        "type": "Dialog.Delegate",
-                        "updatedIntent": {
-                            "name": "cityIntent",
-                            "confirmationStatus": "NONE",
-                            "slots": {
-                              "name": "cityName",
-                              "value": "London",
-                              "confirmationStatus": "NONE"
-                            }
+                      "type": "Dialog.Delegate",
+                      "updatedIntent": {
+                        "name": "cityIntent",
+                        "confirmationStatus": "NONE",
+                        "slots": {
+                          "cityName": {
+                            "name": "cityName",
+                            "value": "London",
+                            "confirmationStatus": "NONE"
+                          }
                         }
+                      }
                     }
                   ],
                   "shouldEndSession": false
