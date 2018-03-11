@@ -147,7 +147,6 @@ app.post('/webhook', function(req, res){
                 responseBody = {
                   "version": "1.0",
                   "response": {
-                  "outputSpeech": { "type": 'SSML', "ssml": '<speak>'+ outputSpeechText +'</speak>' },
                   "directives": [
                     {
                       "type": "Dialog.Delegate",
