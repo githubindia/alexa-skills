@@ -167,15 +167,29 @@ app.post('/webhook', function(req, res){
                 "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
             }
             } else if (jsonData.request.dialogState == "IN_PROGRESS" && jsonData.request.intent.slots.cityName.confirmationStatus == "DENIED") {
+              var city2 = jsonData.request.intent.slots.cityName.value;
               responseBody = {
-                "version": '1.0',
+                "version": "1.0",
                 "response": {
-                    "shouldEndSession": true,
-                    "outputSpeech": { "type": 'SSML', "ssml": '<speak>Please specify the city name.</speak>' } 
-                },
-                "sessionAttributes": {},
-                "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
-              }
+                "directives": [
+                  {
+                    "type": "Dialog.Delegate",
+                    "updatedIntent": {
+                      "name": "cityIntent",
+                      "confirmationStatus": "NONE",
+                      "slots": {
+                        "cityName": {
+                          "name": "cityName",
+                          "value": city2,
+                          "confirmationStatus": "DENIED"
+                        }
+                      }
+                    }
+                  }
+                ],
+                "shouldEndSession": false
+                }
+            };
             }
       } else {
         responseBody = {
