@@ -184,10 +184,6 @@ app.post('/webhook', function(req, res){
         responseBody = {
           "version": "1.0",
           "response": {
-          "outputSpeech": {
-              "type": "PlainText",
-              "text": "please say a command"
-          },
           "directives": [
             {
               "type": "Dialog.Delegate",
