@@ -125,7 +125,7 @@ app.post('/webhook', function(req, res){
         "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
     }
     } else if (jsonData.request.intent.name == "cityIntent") {
-          if (jsonData.request.intent.slots.cityName.name == "cityName") {
+          if (typeof jsonData.request.intent.slots.cityName.value != "undefined") {
             city = jsonData.request.intent.slots.cityName.value;
             console.log(city);
             // var options = { 
@@ -186,7 +186,7 @@ app.post('/webhook', function(req, res){
           "response": {
           "outputSpeech": {
               "type": "PlainText",
-              "text": outputSpeechText
+              "text": "please say a command"
           },
           "card": {
               "type": "Simple",
