@@ -142,44 +142,44 @@ app.post('/webhook', function(req, res){
             })();
             if (jsonData.request.dialogState == "STARTED") {
                 //console.log("response"+JSON.stringify(response) + "response")
-                outputSpeechText = "humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
-                console.log(outputSpeechText);  
-            }
-            responseBody = {
-              "version": "1.0",
-              "response": {
-              "outputSpeech": {
-                  "type": "PlainText",
-                  "text": outputSpeechText
-              },
-              "card": {
-                  "type": "Simple",
-                  "title": "cityIntent",
-                  "content": "Hello from JS."
-              },
-              "reprompt": {
+                var outputSpeechText = "humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
+                //console.log(outputSpeechText);
+                responseBody = {
+                  "version": "1.0",
+                  "response": {
                   "outputSpeech": {
-                  "type": "PlainText",
-                  "text": "Say a command"
-                  }
-              },
-              "directives": [
-                {
-                    "type": "Dialog.Delegate",
-                    "updatedIntent": {
-                        "name": "cityIntent",
-                        "confirmationStatus": "NONE",
-                        "slots": {
-                          "name": "cityName",
-                          "value": "London",
-                          "confirmationStatus": "NONE"
+                      "type": "PlainText",
+                      "text": outputSpeechText
+                  },
+                  "card": {
+                      "type": "Simple",
+                      "title": "cityIntent",
+                      "content": "Hello from JS."
+                  },
+                  "reprompt": {
+                      "outputSpeech": {
+                      "type": "PlainText",
+                      "text": "Say a command"
+                      }
+                  },
+                  "directives": [
+                    {
+                        "type": "Dialog.Delegate",
+                        "updatedIntent": {
+                            "name": "cityIntent",
+                            "confirmationStatus": "NONE",
+                            "slots": {
+                              "name": "cityName",
+                              "value": "London",
+                              "confirmationStatus": "NONE"
+                            }
                         }
                     }
-                }
-              ],
-              "shouldEndSession": false
-              }
-          };
+                  ],
+                  "shouldEndSession": false
+                  }
+              };
+            }
       }
     }
       }
