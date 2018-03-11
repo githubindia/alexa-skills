@@ -147,21 +147,7 @@ app.post('/webhook', function(req, res){
                 responseBody = {
                   "version": "1.0",
                   "response": {
-                  "outputSpeech": {
-                      "type": "PlainText",
-                      "text": outputSpeechText
-                  },
-                  "card": {
-                      "type": "Simple",
-                      "title": "cityIntent",
-                      "content": "Hello from JS."
-                  },
-                  "reprompt": {
-                      "outputSpeech": {
-                      "type": "PlainText",
-                      "text": "Say a command"
-                      }
-                  },
+                  "outputSpeech": { "type": 'SSML', "ssml": '<speak>'+ outputSpeechText +'</speak>' },
                   "directives": [
                     {
                       "type": "Dialog.Delegate",
