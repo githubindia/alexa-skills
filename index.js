@@ -188,17 +188,6 @@ app.post('/webhook', function(req, res){
               "type": "PlainText",
               "text": "please say a command"
           },
-          "card": {
-              "type": "Simple",
-              "title": "cityIntent",
-              "content": "Hello from JS."
-          },
-          "reprompt": {
-              "outputSpeech": {
-              "type": "PlainText",
-              "text": "Say a command"
-              }
-          },
           "directives": [
             {
               "type": "Dialog.Delegate",
