@@ -166,6 +166,16 @@ app.post('/webhook', function(req, res){
                 "sessionAttributes": {},
                 "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
             }
+            } else if (jsonData.request.dialogState == "IN_PROGRESS" && jsonData.request.intent.slots.cityName.confirmationStatus == "DENIED") {
+              responseBody = {
+                "version": '1.0',
+                "response": {
+                    "shouldEndSession": true,
+                    "outputSpeech": { "type": 'SSML', "ssml": '<speak>Please specify the city name.</speak>' } 
+                },
+                "sessionAttributes": {},
+                "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
+              }
             }
       } else {
         responseBody = {
