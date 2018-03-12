@@ -93,11 +93,12 @@ app.post('/webhook', function(req, res){
                         "text": "Welcome to Shubham's Stormy weather assistant! Please say a command."
                     },
                     "card": {
-                        "type": "standard",
+                        "type": "Standard",
                         "title": "Opened",
-                        "text": "Welcone to Stormy weather assistant.",
+                        "text": "Welcome to stormy weather assistant",
                         "image": {
                             "smallImageUrl": "https://i.imgur.com/YlKp2nd.jpg",
+                            "largeImageUrl": "https://i.imgur.com/YlKp2nd.jpg"
                         }
                     },
                     "reprompt": {
