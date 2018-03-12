@@ -93,9 +93,12 @@ app.post('/webhook', function(req, res){
                         "text": "Welcome to Shubham's Stormy weather assistant! Please say a command."
                     },
                     "card": {
-                        "type": "Simple",
+                        "type": "standard",
                         "title": "Opened",
-                        "content": "You started the Node.js Echo API Sample"
+                        "text": "Welcone to Stormy weather assistant.",
+                        "image": {
+                            "smallImageUrl": "https://i.imgur.com/YlKp2nd.jpg",
+                        }
                     },
                     "reprompt": {
                         "outputSpeech": {
