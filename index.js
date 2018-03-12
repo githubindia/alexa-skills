@@ -166,7 +166,7 @@ app.post('/webhook', function(req, res){
                             },
                             "sessionAttributes": {},
                             "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
-                        }
+                        };
                     } else if (jsonData.request.dialogState == "IN_PROGRESS" && jsonData.request.intent.slots.cityName.confirmationStatus == "DENIED") {
                         var city2 = jsonData.request.intent.slots.cityName.value;
                         responseBody = {
@@ -230,6 +230,16 @@ app.post('/webhook', function(req, res){
                         }
                     };
                 }
+            } else if (jsonData.request.intent.name == "satisfactoryIntent") {
+                responseBody = {
+                    "version": '1.0',
+                    "response": {
+                        "shouldEndSession": true,
+                        "outputSpeech": { "type": 'SSML', "ssml": '<speak>Thanks for using our weather assistant. Goodbye!</speak>' } 
+                    },
+                    "sessionAttributes": {},
+                    "userAgent": 'ask-nodejs/1.0.25 Node/v6.10.0'
+                };
             }
         }
         res.statusCode = 200;
