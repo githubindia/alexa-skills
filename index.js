@@ -94,7 +94,7 @@ app.post('/webhook', function(req, res){
                     },
                     "card": {
                         "type": "Standard",
-                        "title": "Opened",
+                        "title": "Welcome",
                         "text": "Welcome to stormy weather assistant",
                         "image": {
                             "smallImageUrl": "https://i.imgur.com/YlKp2nd.jpg",
