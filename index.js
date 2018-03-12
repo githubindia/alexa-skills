@@ -153,7 +153,7 @@ app.post('/webhook', function(req, res){
                             weather.cityWeather(city, callback);
                         })();
 
-                        var outputSpeechText = "humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
+                        var outputSpeechText = "Right now in " + city +", humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
                         responseBody = {
                             "version": '1.0',
                             "response": {
@@ -192,7 +192,7 @@ app.post('/webhook', function(req, res){
                             weather.cityWeather(city, callback);
                         })();
 
-                        var outputSpeechText = "humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
+                        var outputSpeechText = "Right now in " + city +", humidity is " + response.body.main.humidity + " with " + response.body.weather[0].description + ".";
                         responseBody = {
                             "version": '1.0',
                             "response": {
